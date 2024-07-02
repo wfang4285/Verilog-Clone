@@ -19,8 +19,6 @@ module tb ();
   reg ena;
   reg [7:0] ui_in;
   reg [7:0] uio_in;
-  reg [1:0] state;
-  reg [1:0] next_state;
   reg alarm;
   wire [7:0] uo_out;
   wire [7:0] uio_out;
@@ -54,9 +52,7 @@ module tb ();
       .sensor (sensor),
       .arm    (arm),
       .on     (on),
-      .alarm  (alarm),
-      .state  (state),
-      .next_state (next_state)
+      .alarm  (alarm)
   );
 
 endmodule
