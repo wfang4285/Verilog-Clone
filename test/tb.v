@@ -19,13 +19,22 @@ module tb ();
   reg ena;
   reg [7:0] ui_in;
   reg [7:0] uio_in;
+  reg alarm;
   wire [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
+  wire sensor;
+  wire arm;
+  wire on;
+
+  localparam [1:0]
+      off = 2'b00,
+      armed = 2'b01,
+      triggered = 2'b10,
+      alarm_on = 2'b11;
 
   // Replace tt_um_example with your module name:
   wfang4285 user_project (
-
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
       .VPWR(1'b1),
@@ -39,7 +48,11 @@ module tb ();
       .uio_oe (uio_oe),   // IOs: Enable path (active high: 0=input, 1=output)
       .ena    (ena),      // enable - goes high when design is selected
       .clk    (clk),      // clock
-      .rst_n  (rst_n)     // not reset
+      .rst_n  (rst_n),
+      .sensor (sensor),
+      .arm    (arm),
+      .on     (on),
+      .alarm  (alarm)
   );
 
 endmodule
