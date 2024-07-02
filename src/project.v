@@ -25,7 +25,7 @@ module wfang4285 (
       off = 2'b00,
       armed = 2'b01,
       triggered = 2'b10,
-      alarm = 2'b11
+      alarm_on = 2'b11
   } state_t;
 
   reg [1:0] state;
@@ -38,9 +38,9 @@ module wfang4285 (
            else next_state = off;
       armed: if (sensor) next_state = triggered;
              else next_state = armed;
-      triggered: if (on) next_state = alarm;
+      triggered: if (on) next_state = alarm_on;
              else next_state = triggered;
-      alarm: next_state = alarm;
+      alarm: next_state = alarm_on;
       default: next_state = off;
     endcase 
   end
