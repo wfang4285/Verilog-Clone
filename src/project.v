@@ -15,9 +15,11 @@ module wfang4285 (
     input  wire       clk,      // clock
     input  wire       rst_n,    // reset_n - low to reset
     input  wire       sensor,   //State representing the sensor
-    input wire        arm,      //State representing armed alarm.
+    input  wire       arm,      //State representing armed alarm.
     output reg        alarm,    //Alarm output.
-    input wire        on        //Alarm on/off
+    input  wire       on,       //Alarm on/off
+    output reg [1:0]  state,
+    output reg [1:0]  next_state
 );
 
   //FSM representing security chip based on "Sensors."
@@ -27,31 +29,33 @@ module wfang4285 (
       triggered = 2'b10,
       alarm_on = 2'b11;
 
-  reg [1:0] state;
-  reg [1:0] next_state;
+  reg [1:0] current;
+  reg [1:0] next;
   
-  //Checking state and assigning your next_state.
+  //Checking state and assigning your next.
   always @(*) begin
-    case(state)
-      off: if (arm) next_state = armed;
-           else next_state = off;
-      armed: if (sensor) next_state = triggered;
-             else next_state = armed;
-      triggered: if (on) next_state = alarm_on;
-             else next_state = triggered;
-      alarm: next_state = alarm_on;
-      default: next_state = off;
+    assign state = current;
+    assign next_state = next;
+    case(current)
+      off: if (arm) next = armed;
+           else next = off;
+      armed: if (sensor) next = triggered;
+             else next = armed;
+      triggered: if (on) next = alarm_on;
+                 else next = triggered;
+      alarm_on: next = alarm_on;
+      default: next = off;
     endcase 
   end
 
   //Updates state and status of alarm. 
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      state <= off;
+      current <= off;
       alarm <= 0;
     end else begin
-      state <= next_state;
-      if (state == alarm) begin
+      current <= next;
+      if (current == alarm_on) begin
         alarm <= 1;
       end else begin
         alarm <= 0;
