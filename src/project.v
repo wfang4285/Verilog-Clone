@@ -21,12 +21,11 @@ module wfang4285 (
 );
 
   //FSM representing security chip based on "Sensors."
-  typedef enum reg [1:0] {
+  localparam [1:0]
       off = 2'b00,
       armed = 2'b01,
       triggered = 2'b10,
-      alarm_on = 2'b11
-  } state_t;
+      alarm_on = 2'b11;
 
   reg [1:0] state;
   reg [1:0] next_state;
