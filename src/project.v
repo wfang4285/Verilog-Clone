@@ -34,8 +34,7 @@ module wfang4285 (
   
   //Checking state and assigning your next.
   always @(*) begin
-    assign state = current;
-    assign next_state = next;
+    next = current;
     case(current)
       off: if (arm) next = armed;
            else next = off;
@@ -62,6 +61,12 @@ module wfang4285 (
       end
     end
   end
+
+  //Updating info
+  always @(*) begin
+    assign state = current;
+    assign next_state = next;
+  end 
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, rst_n, 1'b0};

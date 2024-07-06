@@ -29,7 +29,7 @@ async def test_project(dut):
     dut.ui_in.value = 20
     dut.uio_in.value = 30
     dut.arm.value = 1
-    dut.sensor.value = 0
+    dut.sensor.value = 1
     dut.on.value = 0
 
     # Wait for one clock cycle to see the output values
@@ -37,8 +37,8 @@ async def test_project(dut):
 
     # The following assersion is just an example of how to check the output values.
     # Change it to match the actual expected output of your module:
-    assert dut.state == 0b01
-    assert dut.next_state == 0b01
+    assert dut.state == 0b10
+    assert dut.next_state == 0b10
 
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
