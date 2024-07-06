@@ -40,7 +40,7 @@ async def test_project(dut):
     assert dut.state == 0b11
     assert dut.next_state == 0b11
 
-    dut.rst_n.value = 1
+    dut.rst_n.value = 0
     await ClockCycles(dut.clk, 10)
     assert dut.state == 0b00
 
