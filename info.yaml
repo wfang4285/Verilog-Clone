@@ -22,9 +22,9 @@ project:
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
+  ui[0]: "Chip On/Off"
+  ui[1]: "Sensor"
+  ui[2]: "Alarm On/Off"
   ui[3]: ""
   ui[4]: ""
   ui[5]: ""
@@ -32,8 +32,8 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
+  uo[0]: "state/ Alarm input"
+  uo[1]: "next_state"
   uo[2]: ""
   uo[3]: ""
   uo[4]: ""
