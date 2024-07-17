@@ -66,12 +66,13 @@ module wfang4285 (
   always @(*) begin
     assign state = current;
     assign next_state = next;
-    assign uo_in[0] = current;
-    assign uo_out[1] = next;
-    assign arm = ui_in[0]
-    assign sensor = ui_in[1];
-    assign on = ui_in[2];
   end 
+
+  assign uo_in[0] = current;
+  assign uo_out[1] = next;
+  assign arm = ui_in[0]
+  assign sensor = ui_in[1];
+  assign on = ui_in[2];
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, rst_n, 1'b0};
