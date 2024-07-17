@@ -66,11 +66,11 @@ module wfang4285 (
   always @(*) begin
     assign state = current;
     assign next_state = next;
-    assign uo[0] = current;
-    assign uo[1] = next;
-    assign arm = ui[0]
-    assign sensor = ui[1];
-    assign on = ui[2];
+    assign uo_in[0] = current;
+    assign uo_out[1] = next;
+    assign arm = ui_in[0]
+    assign sensor = ui_in[1];
+    assign on = ui_in[2];
   end 
 
   // List all unused inputs to prevent warnings
