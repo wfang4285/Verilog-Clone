@@ -31,9 +31,6 @@ module wfang4285 (
 
   reg [1:0] current;
   reg [1:0] next;
-  wire arm = ui_in[0];
-  wire sensor = ui_in[1];
-  wire on = ui_in[2];
   
   //Checking state and assigning your next.
   always @(*) begin
@@ -70,10 +67,7 @@ module wfang4285 (
     assign state = current;
     assign next_state = next;
   end 
-
-  wire uo_in[0] = current;
-  wire uo_out[1] = next;
-
+  
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, rst_n, 1'b0};
   assign uio_oe = 8'b0; 
