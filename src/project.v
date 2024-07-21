@@ -62,10 +62,11 @@ module tt_um_wfang4285 (
     uo_out[1:0] = current;
     uo_out[3:2] = next;
     uo_out[4] = alarm;
+    uo_out[7:5] = 0;
   end 
   
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, ui_in[7:3], ui_out[7:5], uio_in, 1'b0};
+  wire _unused = &{ena, ui_in[7:3], uio_in, 1'b0};
   assign uio_oe = 8'b0; 
   assign uio_out = 8'b0; 
 endmodule
