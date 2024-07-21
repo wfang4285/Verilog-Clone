@@ -21,7 +21,7 @@ module tb ();
   reg [7:0] uio_in;
   wire [1:0] state;
   wire [1:0] next_state;
-  wire [7:0] uo_out;
+  reg [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
   reg alarm;
