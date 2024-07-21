@@ -19,12 +19,9 @@ module tb ();
   reg ena;
   reg [7:0] ui_in;
   reg [7:0] uio_in;
-  wire [1:0] state;
-  wire [1:0] next_state;
   reg [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
-  reg alarm;
 
   localparam [1:0]
       OFF = 2'b00,
@@ -47,10 +44,7 @@ module tb ();
       .uio_oe (uio_oe),   // IOs: Enable path (active high: 0=input, 1=output)
       .ena    (ena),      // enable - goes high when design is selected
       .clk    (clk),      // clock
-      .rst_n  (rst_n),
-      .alarm  (alarm),
-      .state  (state),
-      .next_state (next_state)
+      .rst_n  (rst_n)
   );
 
 endmodule

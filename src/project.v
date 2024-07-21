@@ -13,10 +13,7 @@ module tt_um_wfang4285 (
     output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
     input  wire       ena,      // always 1 when the design is powered, so you can ignore it
     input  wire       clk,      // clock
-    input  wire       rst_n,    // reset_n - low to reset
-    output reg        alarm,    // Alarm output
-    output reg [1:0]  state,
-    output reg [1:0]  next_state
+    input  wire       rst_n    // reset_n - low to reset
 );
 
   // FSM representing security chip based on sensor/ other inputs.
@@ -28,8 +25,9 @@ module tt_um_wfang4285 (
 
   reg [1:0] current;
   reg [1:0] next;
+  reg alarm; // Alarm output
   
-  //State and next state check.
+  //Updating next state.
   always @(*) begin
     next = current;
     case(current)
@@ -64,8 +62,6 @@ module tt_um_wfang4285 (
     uo_out[1:0] = current;
     uo_out[3:2] = next;
     uo_out[4] = alarm;
-    state = current;
-    next_state = next;
   end 
   
   // List all unused inputs to prevent warnings
