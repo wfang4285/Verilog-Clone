@@ -64,8 +64,8 @@ module tt_um_wfang4285 (
     uo_out[1:0] = current;
     uo_out[3:2] = next;
     uo_out[4] = alarm;
-    assign state = current;
-    assign next_state = next;
+    state = current;
+    next_state = next;
   end 
   
   // List all unused inputs to prevent warnings
