@@ -25,15 +25,12 @@ module tb ();
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
   reg alarm;
-  reg sensor;
-  reg arm;
-  reg on;
 
   localparam [1:0]
-      off = 2'b00,
-      armed = 2'b01,
-      triggered = 2'b10,
-      alarm_on = 2'b11;
+      OFF = 2'b00,
+      ARMED = 2'b01,
+      TRIGGERED = 2'b10,
+      ALARM_ON = 2'b11;
 
   // Replace tt_um_example with your module name:
   wfang4285 user_project (
@@ -51,9 +48,6 @@ module tb ();
       .ena    (ena),      // enable - goes high when design is selected
       .clk    (clk),      // clock
       .rst_n  (rst_n),
-      .sensor (sensor),
-      .arm    (arm),
-      .on     (on),
       .alarm  (alarm),
       .state  (state),
       .next_state (next_state)

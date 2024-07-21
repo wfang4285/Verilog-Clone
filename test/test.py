@@ -26,11 +26,10 @@ async def test_project(dut):
     dut._log.info("Test project behavior")
 
     # Set the input values you want to test
-    dut.ui_in.value = 1
+    dut.ui_in[0].value = 1
+    dut.ui_in[1].value = 1
+    dut.ui_in[2].value = 1
     dut.uio_in.value = 1
-    dut.arm.value = 1
-    dut.sensor.value = 1
-    dut.on.value = 1
 
     # Wait for one clock cycle to see the output values
     await ClockCycles(dut.clk, 10)

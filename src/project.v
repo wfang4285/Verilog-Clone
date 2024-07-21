@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2024 Your Name
  * SPDX-License-Identifier: Apache-2.0
- */
+*/
 
 `default_nettype none
 
@@ -14,47 +14,44 @@ module wfang4285 (
     input  wire       ena,      // always 1 when the design is powered, so you can ignore it
     input  wire       clk,      // clock
     input  wire       rst_n,    // reset_n - low to reset
-    input  wire       sensor,   //State representing the sensor
-    input  wire       arm,      //State representing armed alarm.
-    output reg        alarm,    //Alarm output.
-    input  wire       on,       //Alarm on/off
+    output reg        alarm,    // Alarm output
     output reg [1:0]  state,
     output reg [1:0]  next_state
 );
 
-  //FSM representing security chip based on "Sensors."
+  // FSM representing security chip based on sensor/ other inputs.
   localparam [1:0]
-      off = 2'b00,
-      armed = 2'b01,
-      triggered = 2'b10,
-      alarm_on = 2'b11;
+      OFF = 2'b00,
+      ARMED = 2'b01,
+      TRIGGERED = 2'b10,
+      ALARM_ON = 2'b11;
 
   reg [1:0] current;
   reg [1:0] next;
   
-  //Checking state and assigning your next.
+  //State and next state check.
   always @(*) begin
     next = current;
     case(current)
-      off: if (arm) next = armed;
-           else next = off;
-      armed: if (sensor) next = triggered;
-             else next = armed;
-      triggered: if (on) next = alarm_on;
-                 else next = triggered;
-      alarm_on: next = alarm_on;
-      default: next = off;
+      OFF: if (ui_in[0]) next = ARMED;
+           else next = OFF;
+      ARMED: if (ui_in[1]) next = TRIGGERED;
+             else next = ARMED;
+      TRIGGERED: if (ui_in[2]) next = ALARM_ON;
+                 else next = TRIGGERED;
+      ALARM_ON: next = ALARM_ON;
+      default: next = OFF;
     endcase 
   end
 
-  //Updates state and status of alarm. 
+  //Alarm updating
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      current <= off;
+      current <= OFF;
       alarm <= 0;
     end else begin
       current <= next;
-      if (current == alarm_on) begin
+      if (current == ALARM_ON) begin
         alarm <= 1;
       end else begin
         alarm <= 0;
@@ -62,14 +59,18 @@ module wfang4285 (
     end
   end
 
-  //Updating info
+  //Output pin update.
   always @(*) begin
+    uo_out[1:0] = current;
+    uo_out[3:2] = next;
+    uo_out[4] = alarm;
     assign state = current;
     assign next_state = next;
   end 
   
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, rst_n, 1'b0};
+  wire _unused = &{ena, 1'b0};
   assign uio_oe = 8'b0; 
   assign uio_out = 8'b0; 
 endmodule
+
