@@ -36,6 +36,7 @@ async def test_project(dut):
 
     # The following assersion is just an example of how to check the output values.
     # Change it to match the actual expected output of your module:
+    print(dut.uo_out)
     assert dut.uo_out[1:0] == 0b11
     assert dut.uo_out[3:2] == 0b11
 
