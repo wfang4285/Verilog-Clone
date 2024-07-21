@@ -63,7 +63,7 @@ module wfang4285 (
   always @(*) begin
     assign uo_out[1:0] = current;
     assign uo_out[3:2] = next;
-    assign uo_out[2] = alarm;
+    assign uo_out[4] = alarm;
     assign state = current;
     assign next_state = next;
   end 
