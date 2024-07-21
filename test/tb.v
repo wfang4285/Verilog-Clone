@@ -33,7 +33,7 @@ module tb ();
       ALARM_ON = 2'b11;
 
   // Replace tt_um_example with your module name:
-  wfang4285 user_project (
+  tt_um_wfang4285 user_project (
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
       .VPWR(1'b1),
